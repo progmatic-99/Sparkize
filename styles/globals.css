@@ -1,5 +1,5 @@
 @tailwind base;
-@tailwind globals;
+@tailwind components;
 @tailwind utilities;
 
 html,
