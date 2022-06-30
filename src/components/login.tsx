@@ -1,6 +1,6 @@
 import React from "react";
 import { NextPage } from "next";
-import { supabase } from "../utils/supabaseClient";
+import { supabase } from "@/utils/supabaseClient";
 
 const Login: NextPage = () => {
   const email = process.env.NEXT_EMAIL;
