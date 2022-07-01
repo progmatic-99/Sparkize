@@ -1,12 +1,18 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import React from "react";
-import Layout from "../src/layout";
+import React, { useReducer } from "react";
+import Layout from "@/layout";
+import { initialState, reducer } from "@/utils/userReducer";
+import { UserContext } from "@/utils/userContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   return (
     <Layout>
-      <Component {...pageProps} />
+      <UserContext.Provider value={{ state, dispatch }}>
+        <Component {...pageProps} />
+      </UserContext.Provider>
     </Layout>
   );
 }
