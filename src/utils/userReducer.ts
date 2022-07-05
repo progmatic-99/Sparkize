@@ -2,7 +2,7 @@ type Payload = {
   user: Object;
 };
 
-type reducerAction = {
+export type reducerAction = {
   type: string;
   payload: Payload;
 };

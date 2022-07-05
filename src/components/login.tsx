@@ -1,18 +1,23 @@
 import React, { FormEvent } from "react";
 import { NextPage } from "next";
 import { supabase } from "@/utils/supabaseClient";
+import { useAuth } from "@/utils/userContext";
 
 const Login: NextPage = () => {
   const email = process.env.NEXT_EMAIL;
   const password = process.env.NEXT_PASS;
+  const { dispatch } = useAuth();
 
   const login = async (e: FormEvent) => {
     e.preventDefault();
-    const { user, session, error } = await supabase.auth.signUp({
+    const { user, error } = await supabase.auth.signIn({
       email: email,
       password: password,
     });
-    console.log(user, session, error);
+    if (error) {
+      console.error(error);
+    }
+    dispatch({ action: "LOGIN_SUCCESS", payload: user });
   };
 
   return (
