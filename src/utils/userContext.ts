@@ -2,10 +2,13 @@ import { createContext, useContext } from "react";
 
 interface UserCtx {
   state: object;
-  dispatch: any;
+  dispatch: React.Dispatch<any>;
 }
 
-export const UserContext = createContext<UserCtx | null>(null);
+export const UserContext = createContext<UserCtx>({
+  state: {},
+  dispatch: () => null,
+});
 
 export function useAuth() {
   return useContext(UserContext);

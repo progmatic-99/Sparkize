@@ -8,7 +8,7 @@ export type reducerAction = {
 };
 
 export const initialState = {
-  user: {},
+  state: {},
 };
 
 export const reducer = (state = initialState, action: reducerAction) => {
@@ -16,12 +16,12 @@ export const reducer = (state = initialState, action: reducerAction) => {
     case "LOGIN_SUCCESS":
       return {
         ...state,
-        user: action.payload.user,
+        state: action.payload.user,
       };
     case "LOGOUT":
       return {
         ...state,
-        user: {},
+        state: {},
       };
 
     default:
