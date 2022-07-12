@@ -3,6 +3,7 @@ import {
   User,
   UserCredentials,
   ApiError,
+  AuthChangeEvent,
 } from "@supabase/supabase-js";
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "./supabaseClient";
@@ -39,8 +40,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const { data: listener } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        console.log(event);
         setUser(session?.user ?? null);
+        updateSupabaseCookie(event, session);
       }
     );
     return () => {
@@ -58,4 +59,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 export function useAuth() {
   return useContext(AuthContext);
+}
+
+async function updateSupabaseCookie(
+  event: AuthChangeEvent,
+  session: Session | null
+) {
+  await fetch("/api/auth", {
+    method: "POST",
+    headers: new Headers({ "Content-Type": "application/json" }),
+    credentials: "same-origin",
+    body: JSON.stringify({ event, session }),
+  });
 }

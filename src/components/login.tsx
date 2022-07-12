@@ -12,7 +12,7 @@ const Login: NextPage = () => {
 
   const login = async (e: FormEvent) => {
     e.preventDefault();
-    const { user, error } = await signIn({ email: email, password: password });
+    const { error } = await signIn({ email: email, password: password });
     if (error) {
       console.error(error);
       return;
